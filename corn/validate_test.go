@@ -14,7 +14,7 @@ func TestValidate(t *testing.T) {
 	}{
 		{
 			input: []string{"*", "*", "*", "*", "*", "/path/to/command"},
-			expected: Parser{
+			expected: parser{
 				Minute:     generateSequence(0, maxMinute),
 				Hour:       generateSequence(0, maxHour),
 				DayOfMonth: generateSequence(1, maxDayOfMonth),
@@ -26,7 +26,7 @@ func TestValidate(t *testing.T) {
 		},
 		{
 			input: []string{"*/15", "0", "1,15", "1-5", "*", "/path/to/command"},
-			expected: Parser{
+			expected: parser{
 				Minute:     []string{"0", "15", "30", "45"},
 				Hour:       []string{"0"},
 				DayOfMonth: []string{"1", "15"},
@@ -38,7 +38,7 @@ func TestValidate(t *testing.T) {
 		},
 		{
 			input: []string{"0", "12", "10-20", "2", "1-5", "/path/to/command"},
-			expected: Parser{
+			expected: parser{
 				Minute:     []string{"0"},
 				Hour:       []string{"12"},
 				DayOfMonth: []string{"10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"},
@@ -50,22 +50,22 @@ func TestValidate(t *testing.T) {
 		},
 		{
 			input:    []string{"60", "*", "*", "*", "*", "/path/to/command"},
-			expected: Parser{},
+			expected: nil,
 			err:      true,
 		},
 		{
 			input:    []string{"*", "*", "0", "*", "*", "/path/to/command"},
-			expected: Parser{},
+			expected: nil,
 			err:      true,
 		},
 		{
 			input:    []string{"*", "*", "*", "*", "8", "/path/to/command"},
-			expected: Parser{},
+			expected: nil,
 			err:      true,
 		},
 		{
 			input: []string{"*/2", "*", "*", "*", "0-7", "/path/to/command"},
-			expected: Parser{
+			expected: parser{
 				Minute:     generateStepSequence(0, maxMinute, 2),
 				Hour:       generateSequence(0, maxHour),
 				DayOfMonth: generateSequence(1, maxDayOfMonth),

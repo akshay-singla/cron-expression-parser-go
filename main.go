@@ -28,11 +28,6 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%-14s%s\n", "minute", strings.Join(parser.Minute, " "))
-	fmt.Printf("%-14s%s\n", "hour", strings.Join(parser.Hour, " "))
-	fmt.Printf("%-14s%s\n", "day of month", strings.Join(parser.DayOfMonth, " "))
-	fmt.Printf("%-14s%s\n", "month", strings.Join(parser.Month, " "))
-	fmt.Printf("%-14s%s\n", "day of week", strings.Join(parser.DayOfWeek, " "))
-	fmt.Printf("%-14s%s\n", "command", parser.Command)
+	parser.Print()
 
 }
